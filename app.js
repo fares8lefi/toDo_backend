@@ -5,8 +5,9 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const http = require('http')
 const {connectToDb}=require("./config/db")
-var usersRouter = require('./routes/users');
 
+var usersRouter = require('./routes/usersRouter');
+var taskRouter = require('./routes/taskRouter');
 var app = express();
 
 // view engine setup
@@ -21,7 +22,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 require('dotenv').config();
 
 app.use('/users', usersRouter);
-
+app.use('/tasks', taskRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
@@ -38,7 +39,7 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 const server=http.createServer(app);
-const port = 3000
+const port = 5000
 server.listen(port, () => {
   connectToDb();
   console.log(`Serveur démarré sur le port ${port}`);
