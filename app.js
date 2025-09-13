@@ -27,7 +27,10 @@ app.use('/tasks', taskRouter);
 app.use(function(req, res, next) {
   next(createError(404));
 });
-
+app.use(cors({
+  origin: 'http://localhost:3000', // Remplace par l'URL de ton frontend
+  credentials: true
+}))
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
