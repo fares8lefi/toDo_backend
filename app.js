@@ -5,7 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const http = require('http')
 const {connectToDb}=require("./config/db")
-
+var cors = require('cors')
 var usersRouter = require('./routes/usersRouter');
 var taskRouter = require('./routes/taskRouter');
 var app = express();
@@ -21,16 +21,22 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 require('dotenv').config();
 
+app.use(cors({
+  origin: '*',
+  methods: "GET,POST,PUT,DELETE,PATCH",
+  credentials: true
+}));
+
+app.get('/ping', (req, res) => {
+  res.status(200).send('OK');
+});
 app.use('/users', usersRouter);
 app.use('/tasks', taskRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
 });
-app.use(cors({
-  origin: 'http://localhost:3000', // Remplace par l'URL de ton frontend
-  credentials: true
-}))
+
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
