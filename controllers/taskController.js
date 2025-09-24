@@ -2,12 +2,11 @@ const taskModel = require("../models/taskSchema");
 
 module.exports.addTask = async (req, res) => {
   try {
-    const { title, description, completed, user } = req.body;
+    const { title, description, completed } = req.body;
     const task = await taskModel.create({
       title,
       description,
       completed,
-      user,
     });
     res.status(200).json({ task });
   } catch (error) {
