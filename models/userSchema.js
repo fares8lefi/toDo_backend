@@ -19,12 +19,13 @@ const userSchema = new mongoose.Schema({
     required: true,
     minlegth: 8,
   },
-  tasks: [
+  /*tasks: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Task", // Référence vers le modèle Task
     },
-  ],
+  ],*/
+  
 });
 
 const User = mongoose.model("user", userSchema);
